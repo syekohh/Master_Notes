@@ -1,0 +1,233 @@
+---
+title: "\\textbf{\\Huge STA258 Master Notes}"
+author: "\\LARGE Haris Aljic"
+date: "\\large `r Sys.Date()`"
+output:
+  pdf_document: 
+    toc: true
+    toc_depth: 3
+  html_document:
+    toc: true
+header-includes:
+   - \usepackage{setspace}
+   - \onehalfspacing
+   - \usepackage{titling}
+   - \predate{\begin{center}\LARGE}
+   - \postdate{\end{center}\vspace{3.5cm}\begin{center}\includegraphics[width=3.9in,height=3.9in]{/Users/harisaljic/Downloads/p-value-statistics-meme.jpg}\vspace{3.5cm}\end{center}}
+   - \preauthor{\vspace{0.1cm}\begin{center}\LARGE}
+   - \postauthor{\end{center}}
+   # - \usepackage[none]
+   - \usepackage{wrapfig}
+   - \usepackage{lipsum}
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\newpage
+
+# Module 1 - "Exploring Categorical Data"
+
+* Categorical variables represent groups/categories like colour/gender/etc
+* They can be nominal (non-ordered) or ordinal (ordered)
+  - This is a "scale of measure" for the data
+* They're graphical displays are most often bar graphs and pie charts
+
+## Frequency Distributions
+
+* A "distribution" is a variables _pattern of variation_
+* A frequency distribution orders a set of scores from highest to lowest
+* Can be modeled as either a table or graph, but regardless, the _same two elements_ are presented
+  - Set of categories that make up the original measurement scale
+  - A record of the frequency, or number of individuals in each category
+* So a frequency distribution presents a **picture** of how individual scores/observations are distributed on the measurement scale
+
+## Describing Categorical Data
+
+* Frequency (counts)
+* Relative frequency (proportion)
+  - Count of category divided by total count
+* Percentage (proportion times 100)
+
+This information is often _derived from_ or _given_ in a Frequency Distribution Table (and graphically displayed as either a bar graph or pie chart)
+
+**Consider the Titanic Example**
+
+```{r}
+titanic <- read.csv("Titanic.csv")
+attach(titanic)
+str(titanic)
+```
+
+We can see two types of distribution tables here for the "Survived" variable:
+
+```{r}
+# See the Frequency Distribution Table for the Survived variable
+addmargins(table(Survived))
+```
+
+This table tells us precisely HOW MANY (frequency/count) people survived or not
+
+\newpage
+
+``` {r}
+# See the RELATIVE Frequency Distribution Table for the Survived variable
+addmargins(prop.table(table(Survived)))
+```
+
+This table tells us the relative frequency (proportion) of survivors to the total population
+
+We can extend this further to say that $\approx 32\%$ survived, for example.
+
+## Variable Roles
+
+A variable can be classified as **Response (outcome, dependent)**, or **Explanatory (predictor, independent)**
+
+A study on two variable where one is a **response variable**, the other **explanatory**, we observe the outcomes of the response _depends_ on the values of the explanatory
+
+## Contingency Tables and Marginal Distribution Tables
+
+**Consider the Ticket Classes for the Titanic dataset**
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+library(mosaic)
+```
+```{r, echo=FALSE}
+tally(~ Class, margin = TRUE, data = titanic)
+```
+
+And define the contingency table as follows:
+```{r}
+Contingency.Table <- table(Survived, Class)
+addmargins(Contingency.Table)
+```
+(Note this table is still classified as 2x4)
+
+Notice how for any single cell, three different percentages exist.
+
+For example, take the number of First Class passengers that are alive ($203$):
+
+* Row percentage: $203/711 = 28.6\%$ of survivors in first-class
+* Column percentage: $203/325 = 62.5\%$ of first-class passengers survived
+* Overall percentage: $203/2201 = 9.2\%$ of passengers were in first-class
+
+## Marginal Distributions and Joint Distributions
+
+The sum for each row or for each column give totals. These are the _margins_. In the Ticket Class example, we have two variables - **Survived**  (row) and **Ticket Class** (column)
+
+Marginal distributions can be displayed as counts or percentages.
+
+```{r, echo=FALSE}
+addmargins(prop.table(margin.table(Contingency.Table, 1)))
+```
+
+Similar to Marginal Distributions are Joint Distributions, where each cell of the dataset sums together to the overall total, like so:
+
+```{r, echo=FALSE}
+addmargins((prop.table(Contingency.Table)))
+```
+
+## Comparing Two Conditional Proportions (Difference and Ratio of Proportions)
+
+The **Difference of Proportions** is simply subtracting one proportion from another to determine which has higher **percentage points**
+
+For example, with the ticket class data set, the first-class passengers who survived ($62\%$), is $37$ **percentage points higher** than the third-class passengers ($25\%$)
+
+It is incredibly important to note that the percentage of first-class survivors is NOT $37\%$ higher than the percentage of third-class survivors. It is $37$ **percentage points** higher.
+
+The **Ratio of Proportions**, however, tells us much larger or smaller one proportion is to another.
+
+Following the same example from earlier, 0.62/0.25 = 2.48 implies that the proportion of survived is 2.48 times larger for first-class passengers than for third-class (or that first-class passengers were 2.48 times more likely to have survived than third-class)
+
+**Interpreting Ratios**
+
+* When proportions are (nearly) identical, their difference is zero, ratio is one, and are said to have **no association** - The greater their difference, the stronger their association.
+* Ratio of proportions is often preferred to the difference of proportions when the proportions themselves are both small.
+* It is common to speak of *percent increases* when you have a ratio in between 1 and 2
+  - For example, a ratio $\frac{a}{b} = 1.09$ implies that proportion $a$ is 1.09 times larger than $b$, and hence is 9% higher.
+* Conversely, a ratio below 1 implies a percent decrease - $\frac{b}{a} = 0.91 \implies 100\% - 91\% = 9\%$ decrease (note this is just the reciprocal of the earlier fraction)
+
+# Module 2 - Exploring Quantitaive Data
+
+## Shapes of Histograms
+
+![](/Users/harisaljic/Downloads/Plot_examples.png)
+An easy way to remember, is that skewness corresponds to the tail. For example, if most of the observations are on the right side, that means there's a tail to the left, which means the distribution is **left-tailed**.
+
+```{r, echo=FALSE, fig.align='center', fig.height=3, fig.width=5}
+# Set the seed for reproducibility
+set.seed(292)
+
+# Generate random numbers for the first mode
+mode1 <- rnorm(1000, mean = 5, sd = 1.5)
+
+# Generate random numbers for the second mode
+mode2 <- rnorm(1000, mean = 15, sd = 1.5)
+
+# Combine the two modes
+bimodal_distribution <- c(mode1, mode2)
+
+# Plot the bimodal distribution
+hist(bimodal_distribution, col = "lightblue", main = "Bimodal Distribution (Two Modes)", xlab = "Value")
+```
+
+## Density Plot
+
+A **Density Plot** is a smooth, continuous function over an interval to visualize the distribution of data. The advantage of density plots over histograms is that they are unaffected by the number of bins (bars) used, and can have a shape or form with lower bin counts that histograms typically would not. 
+
+Another detail to consider when discussing density plots is their **bandwidth selection**. Higher bandwidth smooths out the curve, and will likely leaves out smaller variations. Lower bandwidth, however, shows the much finer details and fluctuations. Take a look below to see the difference bandwidth makes on the _same_ dataset:
+
+```{r, echo=FALSE}
+
+tims <- read.csv("TimHortons.csv")
+attach(tims)
+
+# Set seed for reproducibility
+set.seed(292)
+
+# Plot the density curves
+par(mfrow = c(1, 2))  # Set up a 1x2 grid for side-by-side plots
+
+# Plot the first density curve (higher bandwidth)
+plot(density(Calories, bw = 50), main = "Higher Bandwidth", col = "blue", lwd = 2)
+
+# Plot the second density curve (lower bandwidth)
+plot(density(Calories, bw = 5), main = "Lower Bandwidth", col = "red", lwd = 2)
+
+# Reset the plotting parameters
+par(mfrow = c(1, 1))
+```
+
+## Centre and Central Tendency
+
+The **centre** is defined to be a value in the data
+
+## Mean, Median, and Mode
+
+## Spread - Sample Variance (and Sample Standard Deviation)
+
+## Percentiles, Quartiles, and Interquartile Range
+
+## Z-Scores
+
+## Different Plots and how they relate to Normal Distributions
+
+# Module 3
+
+# Module 4
+
+# Module 5
+
+# Module 6
+
+# Module 7
+
+# Module 8
+
+# Module 9
+
+# Module 10
+
+# Module 11

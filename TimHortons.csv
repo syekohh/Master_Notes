@@ -1,0 +1,31 @@
+ID,Donut,Type of Donut,Calories,Fat,Protein,Carbs,Fiber,Sugar
+1,Sugar Loop Donut,Yeast,180,6,4,28,1,8
+2,Maple Dip Donut,Yeast,190,6,4,31,1,11
+3,Honey Dip Donut,Yeast,190,6,4,31,1,11
+4,Chocolate Dip Donut,Yeast,190,6,4,31,1,10
+5,Maple Glazed Donut,Yeast,210,8,4,32,1,13
+6,Vanilla Dip with Coloured Sprinkles,Yeast,250,6,4,46,1,24
+7,Apple Fritter Donut,Yeast,290,8,7,48,2,15
+8,Caramel Apple Fritter Donut,Yeast,300,8,7,52,2,17
+9,Old Fashion Plain Donut,Cake,210,10,3,25,1,8
+10,Cinnamon Sugar Donut,Cake,220,10,3,28,1,10
+11,Old Fashion Dip Donut,Cake,250,10,3,36,1,17
+12,Sour Cream Cinnamon Donut,Cake,270,16,3,29,1,12
+13,Old Fashion Glazed Donut,Cake,270,10,3,41,1,23
+14,Double Chocolate Donut,Cake,270,14,4,35,1,16
+15,Birthday Cake Donut,Cake,280,11,3,42,1,24
+16,Chocolate Glazed Donut,Cake,280,14,4,37,1,19
+17,Peanut Crunch Donut,Cake,300,14,5,39,1,20
+18,Sour Cream Glazed Donut,Cake,340,16,3,46,1,29
+19,Pumpkin Spice Donut,Cake,250,9,4,41,1,23
+20,Strawberry Donut,Filled,200,5,5,34,1,14
+21,Blueberry Donut,Filled,200,5,4,34,1,12
+22,Canadian Maple Donut,Filled,210,6,5,37,1,16
+23,Boston Cream Donut,Filled,220,6,5,37,1,15
+24,Strawberry Bloom Donut,Filled,230,7,4,39,1,18
+25,Banana Split Donut,Filled,230,5,4,40,1,18
+26,Strawberry Shortcake Donut,Filled,250,8,5,40,1,15
+27,Stanley Cup Donut,Filled,270,6,5,48,1,24
+28,Strawberry Vanilla Donut,Filled,270,5,5,52,1,31
+29,Oreo Donut,Filled,400,15,5,61,1,35
+30,Honey Cruller Donut,Other,310,18,2,37,0,22
