@@ -202,9 +202,15 @@ par(mfrow = c(1, 1))
 
 ## Centre and Central Tendency
 
-The **centre** is defined to be a value in the data
+The **centre** is defined to be a value in the data, whereas the **Central Tendency** is a statistical measure (like the mean, median, or mode) used to determine a single score that _defines_ the centre of a distribution.
+
+Our goal surrounidng the central tendency is to find a single score that best represents the data of the entire group.
 
 ## Mean, Median, and Mode
+
+### Mean
+
+The mean can be described as a balance point.
 
 ## Spread - Sample Variance (and Sample Standard Deviation)
 
