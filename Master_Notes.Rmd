@@ -19,12 +19,32 @@ header-includes:
    # - \usepackage[none]
    - \usepackage{wrapfig}
    - \usepackage{lipsum}
-
+   - \usepackage{color}
+   - \usepackage{framed}
+   - \setlength{\fboxsep}{.8em}
+   - \usepackage{tcolorbox}
+   - \usepackage{xcolor}
+   - \tcbuselibrary{listings,breakable}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+\definecolor{myorange}{RGB}{255,165,0}
+\definecolor{mygreen}{RGB}{0,204,0}
+\definecolor{myblue}{RGB}{3,165,252}
+\definecolor{mylightblue}{RGB}{3,206,252}
+
+% Create a new tcolorbox environment for definitions
+\newtcolorbox{mydefinitionbox}{
+    colback=myorange!10, 
+    colframe=myorange,   
+    coltext=black,      
+    fonttitle=\bfseries, 
+    title=Definition,    
+    breakable,           
+}
 
 \newpage
 
@@ -445,7 +465,50 @@ Moreover, $E[(Y - E[Y])] = 0$ is defined as the "first **central** moment" of $Y
 
 Take note that that second central moment is equivalent to the definition of the variance for the random variable $Y$: $Var(Y) = E[(Y - E[Y])^2]$
 
-# Module 4
+## Moment Generating Functions
+
+The moment generating function is defined as $M_X(t) = E[e^{tX}]$, a function of $t$, and not any random variables. This function must be differentiable at $t = 0$. $M_X(t)$ is most often expressed as a closed form.
+
+These are useful for finding expectation and variance of random variables, as the $k^{th}$ derivative evaluated at $t = 0$ produces the $k^{th}$ moment.
+
+So now we have that:
+
+* $E[X] = M'_X(t = 0)$
+* $Var(X) = E[X^2] - (E[X])^2 = M''_X(t = 0) - (M'_X(t = 0))^2$
+
+## The Sample Mean being related to the Normal Distribution
+
+The Sample Mean is defined as follows:
+
+$\bar{X} = \frac{1}{n}\sum_{i = 1}^{n}X_i$
+
+Moreover, if each $X_i$ comes from a normal distribution with mean $\mu$, standard deviation $\sigma$, we can define the sampling distribution of the sample mean $\bar{X}$ as well:
+
+If $X_1, X_2, \dots , X_n$ ~ $N(\mu, \sigma)$, then $\bar{X} = \frac{1}{n}\sum_{i = 1}^{n}X_i$ ~ $N(\mu, \frac{\sigma}{\sqrt{n}})$
+
+Here, $\frac{\sigma}{\sqrt{n}}$ is called the **standard error** of the sample mean, and it is denoted by $\sigma_{\bar{X}}$. It is a fraction of the spread of the data.
+
+# Module 4 - "Sampling Distributions Related to a Normal Population (cont.'d)"
+
+## The Chi-Square Distribution ($\chi_{\nu}^2$)
+
+Let $Z_1, Z_2, \dots, Z_n$ be independent and identically distributed, and define a variable $U$ such that...
+
+  $$U = Z_1^2 + Z_2^2 + \dots + Z_n^2$$
+
+We say that $U$ follows a chi-squared distribution with $n$ degrees of freedom, denoted as $\chi_{(n)}^2$
+
+Some general properties of the chi-squared distribution:
+
+* The sum of independent chi-squared distributions is also chi-squared, with degrees of freedom equal to the sum of all degrees of freedom for those being summed.
+  - $\chi_{\nu_1}^2$ + $\chi_{\nu_2}^2$ = $\chi_{\nu}^2$ where $\nu = \nu_1 + \nu_2$
+* A $\chi_{\nu}^2$ also follows a **Gamma distribution**, with $\alpha = \frac{\nu}{2}$, $\beta = 2$
+
+## The t-Distribution
+
+## The F-Distribution
+
+### The Reciprocal
 
 # Module 5
 
