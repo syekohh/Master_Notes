@@ -438,7 +438,7 @@ include_graphics("/Users/harisaljic/STA258_R/Master_Notes/Plot_Types.png")
 
 # Module 3 - "Sampling Distributions Related to a Normal Population"
 
-**Facts about the Normal Distribution** ($X$ ~ $N(\mu, \sigma)$)
+**Facts about the Normal Distribution** ($X \overset{\mathrm{iid}}{\sim} N(\mu, \sigma)$)
 
 * They are bell-shaped symmetric, smooth curves (this is not unique to normal distributions)
 * The mean is located at the centre of the curve
@@ -484,7 +484,7 @@ $\bar{X} = \frac{1}{n}\sum_{i = 1}^{n}X_i$
 
 Moreover, if each $X_i$ comes from a normal distribution with mean $\mu$, standard deviation $\sigma$, we can define the sampling distribution of the sample mean $\bar{X}$ as well:
 
-If $X_1, X_2, \dots , X_n$ ~ $N(\mu, \sigma)$, then $\bar{X} = \frac{1}{n}\sum_{i = 1}^{n}X_i$ ~ $N(\mu, \frac{\sigma}{\sqrt{n}})$
+If $X_1, X_2, \dots , X_n \overset{\mathrm{iid}}{\sim} N(\mu, \sigma)$, then $\bar{X} = \frac{1}{n}\sum_{i = 1}^{n}X_i$ ~ $N(\mu, \frac{\sigma}{\sqrt{n}})$
 
 Here, $\frac{\sigma}{\sqrt{n}}$ is called the **standard error** of the sample mean, and it is denoted by $\sigma_{\bar{X}}$. It is a fraction of the spread of the data.
 
@@ -492,7 +492,7 @@ Here, $\frac{\sigma}{\sqrt{n}}$ is called the **standard error** of the sample m
 
 ## The Chi-Square Distribution ($\chi_{\nu}^2$)
 
-Let $Z_1, Z_2, \dots, Z_n$ be independent and identically distributed, and define a variable $U$ such that...
+Let $Z_1, Z_2, \dots, Z_n \overset{\mathrm{iid}}{\sim} N(0, 1)$, and define a variable $U$ such that...
 
   $$U = Z_1^2 + Z_2^2 + \dots + Z_n^2$$
 
@@ -503,23 +503,115 @@ Some general properties of the chi-squared distribution:
 * The sum of independent chi-squared distributions is also chi-squared, with degrees of freedom equal to the sum of all degrees of freedom for those being summed.
   - $\chi_{\nu_1}^2$ + $\chi_{\nu_2}^2$ = $\chi_{\nu}^2$ where $\nu = \nu_1 + \nu_2$
 * A $\chi_{\nu}^2$ also follows a **Gamma distribution**, with $\alpha = \frac{\nu}{2}$, $\beta = 2$
+* The greater the degrees of freedom (df), the more spread out and approximately bell-shaped symmetrical the curve (distribution) gets.
+
+### The Relation of $\chi^2$ on Sample Variance $S^2$
+
+If $Z_1, Z_2, \dots, Z_n \overset{\mathrm{iid}}{\sim} N(0, 1)$, then let $U$ be a R.V where $U = \frac{n - 1}{\sigma^2}S^2 = \sum_{i = 1}^{n}(\frac{X_i - \bar{X}}{\sigma})^2 \sim \chi_{n - 1}^2$
+
+That is, $U$ follows a chi-square distribution with $(n - 1)$ degress of freedom.
+
+Also note that $\bar{X}$ and $S^2$ are **independent random variables**, where:
+
+* $E[S^2] = \sigma^2$
+* $Var(S^2) = \frac{2\sigma^4}{n - 1}$
+
+Special Note: $U$ only has $(n - 1)$ degrees of freedom when we subtract by the sample mean, $\bar{X}$, but subtracting by **population mean** results in a chi-squared with exactly $n$ degrees of freedom since _all_ variables are random/"free", and none are fixed/"not free"
 
 ## The t-Distribution
 
+Let $Z\ {\sim}\ N(0, 1)$, and $W\ \sim\ \chi_{\nu}^2$, then define a variable $T$ such that...
+
+  $$T = \frac{Z}{\sqrt{\frac{W}{\nu}}}\ \sim\ t_{\nu}$$
+Some general properties of the chi-squared distribution:
+
+* Its support is defined to be the real numbers
+* $E[T] = 0$
+* $Var(T) = \frac{\nu}{\nu - 2} > 1$ where $Var(T) \rightarrow 1$ as $\nu \rightarrow \inf$
+* $t_{\nu}$ is shorter and fatter than the standard normal distribution, and the tails approach zero much slower.
+* As the degrees of freedom approaches infinity, the t-distribution converges to a standard normal
+* $\frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}} \sim t_{n - 1}$
+* Typically used for sample sizes of **less than 30**
+
 ## The F-Distribution
 
-### The Reciprocal
+A random variable $F$ is said to follow an $F$ distribution if...
 
-# Module 5
+$$F = \frac{\frac{\chi_{\nu_1}^2}{\nu_1}}{\frac{\chi_{\nu_2}^2}{\nu_2}} \sim F_{\nu_1,\ \nu_2}$$
+For $\nu_2 > 2$
 
-# Module 6
+* The support of $F$ is defined on the non-negative real numbers.
+* $E[X] =\frac{\nu_2}{\nu_2 - 1}$ for $\nu_2 > 2$, and $\infty$ for $0 < \nu_{2} \leq 2$
+* $Var(X) = \infty$ for $2 < \nu_{2} \leq 4$, undefined for $0 < \nu_{2} \leq 2$, and messy for $\mu_2 > 4$
 
-# Module 7
+Some additional properties:
 
-# Module 8
+* For $F \sim F_{\nu_1,\ \nu_2}$, $\frac{1}{F} \sim F_{\nu_2, \nu_1}$ (the df switch)
+* Let $T \sim t_{\nu}$. Then, $T^2 \sim F_{1,\ \nu}$
+* If $E_1, E_2 \overset{\mathrm{iid}}{\sim}\ $ Exponential$(\beta)$, $\frac{E_1}{E_2} \sim F_{2, 2}$
 
-# Module 9
+Consider two samples of data:
 
-# Module 10
+* $X_1, X_2, \dots, X_n \overset{\mathrm{iid}}{\sim} N(\mu_X, \sigma)$
+* $Y_1, Y_2, \dots, Y_m \overset{\mathrm{iid}}{\sim} N(\mu_Y, \sigma)$
 
-# Module 11
+This implies that $\frac{n - 1}{\sigma^2}S_X^2 \sim \chi_{n - 1}^2$, and $\frac{m - 1}{\sigma^2}S_Y^2 \sim \chi_{m - 1}^2$
+
+So then,
+
+$$\frac{(\frac{\frac{n - 1}{\sigma^2}S_X^2}{n - 1})}{(\frac{\frac{m - 1}{\sigma^2}S_Y^2}{m - 1})} = \frac{\frac{S_X^2}{\sigma^2}}{\frac{S_Y^2}{\sigma^2}} = \frac{S_X^2}{S_Y^2} \sim F_{n - 1, m - 1}$$
+
+# Module 5 - "Applications of the Limit Theorem"
+
+## Chebyshev's Theorem
+
+Chebyshev's Theorem defines a bound an observation falling $k$-many standard deviations from the mean. The bounds are as follows:
+
+$$P(|X - \mu| \leq k\sigma) > 1 - \frac{1}{k^2}$$
+In simple terms, this states that the probability of some observation ($X$) being **within** $k$ standard deviations from the mean is **at least** $1 - \frac{1}{k^2}$
+
+$$P(|X - \mu| > k\sigma) \leq \frac{1}{k^2}$$
+
+In simple terms, this states that the probability of some observation ($X$) being $k$ standard deviations **away** from the mean is **at most** $\frac{1}{k^2}$
+
+This is a rule that can apply to any type of distribution.
+
+## Convergence in Probability and the Weak Law of Large Numbers
+
+The Weak Law of Large Numbers (WLLN), in short, states that in a sample size $n$-many idependent and identically distributed random variables with common mean (expected value) $\mu$, the sample mean gets increasingly close to the true population mean as the size of the sample, $n$, increases.
+
+A more symbolic and mathematical definition to the WLLN can be shown through either of the following limits:
+$$\lim_{{n \to \infty}} P(|\bar{X}_n - \mu| \geq \epsilon) = 0\ /\  \lim_{{n \to \infty}} P(|\bar{X}_n - \mu| \leq \epsilon) = 1$$
+Although a powerful rule of probability and statistics, the Weak Law of Large Numbers comes from a more general concept known as **convergence in probability**, which states that for a sequence of $n$-many random variables, as $n$ approaches infinity, the probability that the sequence differs from some random variable $X$ becomes arbitrarily small (zero).
+
+## Central Limit Theorem (CLT)
+
+The CLT states that the sample mean of a sample of **iid random variables** converges to a standard normal distribution ($N(0, 1)$)
+
+## Normal Approximation to Binomial
+
+# Module 6 - "Confidence Intervals"
+
+Denote $\hat{\theta}$ as a point estimator of the parameter of some distribution, such as $\lambda$ for Poisson, $\beta$ for Exponential, the median, etc. $\hat{\theta}$ is a random variable in it of itself.
+
+These point estimators, however, are not perfect, and are bound to have some error in their estimation. This bring sus to the idea of **confidence intervals (CI)**. Confidence Intervals provide a range of real values that our estimate falls in. The shorter the width (upper bound minus lower bound) of the interval, the better the decisions we can make are.
+
+## CI for the Mean of a Normal Population (Variance Known)
+
+## CI for the Mean of a Normal Population (Large Sample Size, Variance Unknown)
+
+## CI for the Mean of a Normal Population (Small Sample Size, Variance Unknown)
+
+## Large Sample CI for a Population Proportion
+
+## CI for One Population Variance
+
+# Module 7 - "Hypothesis Testing"
+
+# Module 8 - "Errors in Tests, Statistical Power, and Sample Size
+
+# Module 9 - "Comparing Groups"
+
+# Module 10 - "Analysis of Categorical Data"
+
+# Module 11 - "Correlation and Simple Linear Regression
