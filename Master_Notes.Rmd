@@ -36,7 +36,6 @@ knitr::opts_chunk$set(echo = TRUE)
 \definecolor{myblue}{RGB}{3,165,252}
 \definecolor{mylightblue}{RGB}{3,206,252}
 
-% Create a new tcolorbox environment for definitions
 \newtcolorbox{mydefinitionbox}{
     colback=myorange!10, 
     colframe=myorange,   
@@ -590,25 +589,282 @@ The CLT states that the sample mean of a sample of **iid random variables** conv
 
 ## Normal Approximation to Binomial
 
+The Binomial distribution is essentially a list of $n$-many Bernoulli (yes/no) observations.
+
+Given $X \sim Binomial(n, p)$, this can be approximated to a normal distribution $Y$ where $Y \sim N(np, np(1-p))$.
+
+Even further, we can standardize this using the Central Limit Theorem to be able to use the Z-table, as all the Bernoulli observations are independent and identically distributed.
+
 # Module 6 - "Confidence Intervals"
 
 Denote $\hat{\theta}$ as a point estimator of the parameter of some distribution, such as $\lambda$ for Poisson, $\beta$ for Exponential, the median, etc. $\hat{\theta}$ is a random variable in it of itself.
 
 These point estimators, however, are not perfect, and are bound to have some error in their estimation. This bring sus to the idea of **confidence intervals (CI)**. Confidence Intervals provide a range of real values that our estimate falls in. The shorter the width (upper bound minus lower bound) of the interval, the better the decisions we can make are.
 
+This can be expressed as:
+$$P(\hat{\theta}_L < \theta < \hat{\theta}_U) = (1 - \alpha)$$
+We need to have a pivotal quantity to find an estimator for the confidence interval.
+
+Some common pivotal quantities:
+
+- $U = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}$ for a sample following $N(\mu, \sigma)$ with unknown mean and known variance.
+- $U = \frac{(n - 1)S^2}{\sigma^2}$ for a sample following $N(\mu, \sigma)$ with known mean and unknown variance.
+
 ## CI for the Mean of a Normal Population (Variance Known)
+
+For a 95\% confidence interval...
+
+Since $U = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \sim N(0, 1)$ is a pivotal quantity here, and we know $P(-1.96 < Z < 1.96) = 0.95$. We have...
+
+$\implies P(-1.96 < U < 1.96) = 0.95 = P(-1.96 < \frac{\bar{X} - \mu}{\sigma/\sqrt{n}} < 1.96) = 0.95$
+
+$\implies P(-1.96(\frac{\sigma}{\sqrt{n}}) < \bar{X} - \mu < 1.96(\frac{\sigma}{\sqrt{n}})) = 0.95$
+
+$\implies P(\bar{X} - 1.96(\frac{\sigma}{\sqrt{n}}) < \mu < \bar{X} + 1.96(\frac{\sigma}{\sqrt{n}})) = 0.95$
+
+This can be generalized to $\bar{X} \pm ME(\bar{X}) = \bar{X} \pm z_{\frac{\alpha}{2}}(\frac{\sigma}{\sqrt{n}})$
+
+($ME$ - margin of error, $SE(\bar{X} = \frac{\sigma}{\sqrt{n}}$ - standard error)
+
+Note this can only be used when the sample comes from independent normal observations.
+
+Below are some common coefficients and their corresponding Z-values
+\begin{tabular}{r|r|r}
+\hline
+  Confidence Coefficient & Confidence Level & Z-Value\\
+\hline
+0.90 & 90\% & 1.645\\
+\hline
+0.95 & 95\% & 1.96\\
+\hline
+0.99 & 99\% & 2.575\\
+\hline
+\end{tabular}
 
 ## CI for the Mean of a Normal Population (Large Sample Size, Variance Unknown)
 
+Same formula as above, except we use sample variance instead of population variance:
+
+$\bar{X} \pm ME(\bar{X}) = \bar{X} \pm z_{\frac{\alpha}{2}}(\frac{s}{\sqrt{n}})$
+
+($ME$ - margin of error, $SE$ - standard error)
+
+(This is due to the large sample size of $n$ allowing us to apply CLT)
+
 ## CI for the Mean of a Normal Population (Small Sample Size, Variance Unknown)
+
+Again the same formula as above, except we use the $t$-distribution rather than the Normal.
+
+$\bar{X} \pm ME(\bar{X}) = \bar{X} \pm t^*_{n - 1}(\frac{s}{\sqrt{n}})$
+
+($ME$ - margin of error, $SE$ - standard error)
+
+The value of $t^*_{n - 1}$ is dependent on the confidence level you choose and the degrees of freedom (which is $(n - 1)$)
 
 ## Large Sample CI for a Population Proportion
 
+Define the following:
+
+- $\hat{p} = \frac{x}{n}$
+- $ME(\hat{p}) = Z^* \cdot SE(\hat{p})$
+  - $Z^* =$ Z-Value for specific confidence level
+  - $SE(\hat{p}) = \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}$
+
+and the final formula for the CI is $\hat{p} \pm ME(\hat{p})$
+
+Conditions that must be met for this:
+
+- Independent observations
+- Sampled at random
+- $10\%$ condition (sampling over $10\%$ of the true population gives a lack of independence and the $SE$ formula will now *overestimate* the true $SE$)
+- Sample size/Success-Failure assumption ($n\hat{p} \geq 10$ and $n(1 - \hat{p}) \geq 10$)
+
 ## CI for One Population Variance
+
+Conditions:
+
+- Data comes from a single normal population
+- Independent observations
+- Variance unknown (hence why we are approximating $\sigma^2$)
+
+We use the fact that $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n - 1}$
+
+So $P(\chi^2_{(n - 1);1-(\alpha/2)} < \frac{(n-1)S^2}{\sigma^2} < \chi^2_{(n - 1);(\alpha/2)}) \implies P(\frac{(n-1)S^2}{\chi^2_{(n - 1);(\alpha/2)}} < \sigma^2 < \frac{(n-1)S^2}{\chi^2_{(n - 1);1-(\alpha/2)}})$
+
+Which means the CI is $[\frac{(n-1)S^2}{\chi^2_{(n - 1);(\alpha/2)}}, \frac{(n-1)S^2}{\chi^2_{(n - 1);1-(\alpha/2)}}]$
 
 # Module 7 - "Hypothesis Testing"
 
+## One-sided tests
+
+**Step 1: State the null hypothesis ($H_0$) and alternative hypothesis ($H_a$)**
+
+The goal is typically to provide evidence against $H_0$ and conclude $H_a$ by a proof by contradiction. We assume the null is true and hope to provide evidence that contradicts it (which allows us to conclude the alternative)
+
+**Step 2: Check the necessary assumptions**
+
+- Independence
+- Randomization
+- Less than $10\%$ of the population is sampled
+- At least $10$ successes and failures exist ($np \geq 10$, $n(1 - p) \geq 10$) to verify a large enough sample size.
+
+**Step 3: Assume the $H_0$ is true, identify the test statistic, and find its value ($\hat{p}^*$)**
+
+Test statistic = "What distribution is used given the information in the question?"
+
+Normal? $t$? Normal approximation to binomial?
+
+(Note for normal we typically have to standardize to be able to use the Z-table and obtain our quantities)
+
+**Step 4: Find the p-value of the test statistic**
+
+P-Value = $P(X > \hat{p}^*)$ for $p$ being greater in the $H_a$
+P-Value = $P(X < \hat{p}^*)$ for $p$ being less than in the $H_a$
+
+where $X$ follows a $Z$-distribution, $t$-distribution, etc. (So use those tables)
+
+**Step 5: State the conclusion**
+
+If the P-Value is $\leq \alpha$-level, we reject $H_0$ and can conclude $H_a$
+
+Conversely, if the P-Value is $> \alpha$-level, we *fail* to reject $H_0$ and *cannot* conclude $H_a$
+
+"There is strong evidence that supports ___"
+
+## Two-sided tests
+
+Nearly exactly the same as one-sided, except for Step 4 where we calculate the P-Value. For two sides, we do...
+
+P-Value = $2 \cdot P(X > \hat{p}^*)$ for $\hat{p}^*$ being positive
+P-Value = $2 \cdot P(X < \hat{p}^*)$ for $\hat{p}^*$ being negative
+
+Additionally, make a **directional** conclusion if the alternative uses "$\neq$"
+
+In other words, a positive test statistic value indicates that a mean $\mu$ for example is greater than the hypothesized value, whereas a negative test statistic indicates the mean is less than the hypothesized value.
+
+## Hypothesis testing of one mean
+
+### Variance known, Normal Population (or CLT applies for large sample $n$)
+
+$H_0: \mu = \mu_0$, $H_a: \mu \neq \mu_0$
+
+(This implies a two-sided test)
+
+and $\bar{x} \sim N(\mu, \sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}})$
+
+where the observed test statistic is $Z = \frac{\bar{x} - \mu}{\sigma_{\bar{x}}}$
+
+P-Value = $2 \cdot P(Z > \hat{p}^*)$ for $\hat{p}^*$ being positive
+P-Value = $2 \cdot P(Z < \hat{p}^*)$ for $\hat{p}^*$ being negative
+
+### Variance known, Normal Population, $n$ is small
+
+Same as above, no difference
+
+
+### Variance unknown, $n$ large
+
+Same as above, but use sample standard deviation $s$ instead of $\sigma$
+
+Either the standardized $Z$ or standardized $t$ with $(n - 1)$ degrees of freedom work as the test statistic here.
+
+### Variance unknown, $n$ small
+
+Same as before, just use a $t$-test with $(n - 1)$ degrees of freedom
+
+
+## Hypothesis testing of one variance
+
+$H_0: \sigma^2 = \sigma_0^2$, $H_a: \sigma^2 \neq \sigma_0^2$ or $\sigma^2 > \sigma_0^2$ or $\sigma^2 < \sigma_0^2$
+
+Assuming the null is true implies we assume $\frac{(n - 1)S^2}{\sigma_0^2} \sim \chi^2_{(n - 1)}$
+
+This means our test statistic is $\chi^2 = \frac{(n - 1)S^2}{\sigma_0^2}$ where the reference distribution is $\chi^2_{(n - 1)}$
+
+Decision rules:
+
+- For $H_a: \sigma^2 \neq \sigma_0^2$
+  - We must use the significance level $\alpha$
+  - Reject $H_0$ if $\hat{p}^* > \chi^2_{(n - 1);\alpha/2}$ OR if $\hat{p}^* < \chi^2_{(n - 1);1 - \alpha/2}$
+- For $H_a: \sigma^2 > \sigma_0^2$
+  - Reject $H_0$ if P-value = $P(\chi^2_{(n - 1)} > \hat{p}^*)$ is too small
+  - Or reject $H_0$ if $\hat{p}^* > \chi^2_{(n - 1);\alpha}$
+- For $H_a: \sigma^2 < \sigma_0^2$
+  - Reject $H_0$ if P-value = $P(\chi^2_{(n - 1)} < \hat{p}^*)$ is too small
+  - Or reject $H_0$ if $\hat{p}^* < \chi^2_{(n - 1);\alpha}$
+
+
 # Module 8 - "Errors in Tests, Statistical Power, and Sample Size
+
+## Type I and Type II Errors
+
+Type I Error ($\alpha$): Rejecting $H_0$ when $H_0$ is true.
+
+Type II Error ($\beta$): Failing to reject $H_0$ when $H_0$ is false
+
+## Statistical Power
+
+Power = $\pi$ = $1 - \beta$ = $P($reject $H_0$ | $H_0$ is false$)$ = 1 - $P($fail to reject $H_0$ | $H_0$ is false$)$
+
+The value of power depends on how far the hypothesized value lies from the true value. This distance is called the **effect size**
+
+The effect size can be estimated as the difference between the null value and the observed estimate
+
+A larger effect size implies larger power, and smaller effect sizes are difficult to detect and result in more Type II errors (less power)
+
+Note that power increases as sample size increases.
+
+## Using Power to Determine Sample Size
+
+We will use the example of...
+
+$H_0: p = p_0 = 0.90$, $H_A: p = 0.85$, $\alpha = 0.05$
+
+"At what size $n$ do we achieve Power = $0.80$?"
+
+Write the rule for rejecting $H_0$ in terms of $\hat{p}^*$
+
+$\alpha = P($reject $H_0$ | $H_0$ is true$)$
+
+$0.05 = P(\hat{p} < \hat{p}^*\ |\ p = 0.90$)$
+
+$0.05 = P( \frac{\hat{p} - 0.90}{\sqrt{\frac{0.90(1 - 0.90)}{n}}} < \frac{\hat{p}^* - 0.90}{\sqrt{\frac{0.90(1 - 0.90)}{n}}})$
+
+$0.05 = P(Z < \frac{\hat{p}^* - 0.90}{\sqrt{\frac{0.90(1 - 0.90)}{n}}})$
+
+$\implies -1.645 = \frac{\hat{p}^* - 0.90}{\sqrt{\frac{0.90(1 - 0.90)}{n}}}$
+
+$\implies \hat{p}^* = 0.90 - 1.645 \cdot \sqrt{\frac{0.90(1 - 0.90)}{n}}$
+
+Since power implies that the alternative hypothesis is true, write
+
+Power = $P($reject $H_0$ | $H_0$ is false$)$
+
+$0.80 = P($reject $H_0$ | $p = 0.85)$
+
+$0.80 = P(\frac{\hat{p} - 85}{\sqrt{\frac{0.85(1 - 0.85)}{n}}} < \frac{\hat{p}^* - 0.85}{\sqrt{\frac{0.85(1 - 0.85)}{n}}})$
+
+$\implies P(Z < 0.8416) = 0.80$
+
+$\implies \frac{\hat{p}^* - 0.85}{\sqrt{\frac{0.85(1 - 0.85)}{n}}} = 0.8416$
+
+$\implies \hat{p}^* = 0.85 + 0.8416 \cdot \sqrt{\frac{0.85(1 - 0.85)}{n}}$
+
+Now set these two equations equal to each and solve for $n$:
+
+$0.90 - 1.645 \cdot \sqrt{\frac{0.90(1 - 0.90)}{n}} = 0.85 + 0.8416 \cdot \sqrt{\frac{0.85(1 - 0.85)}{n}}$
+
+$\implies n \approx 253$
+
+## Power formulas
+
+With known standard deviation, significance level, and effect size we can use:
+
+$H_a: \mu > \mu_0 \implies \pi(\mu_a) = P(Z > z_c + \frac{\sqrt{n}(\mu_0 - \mu_a)}{\sigma}$
+
+$H_a: \mu < \mu_0 \implies \pi(\mu_a) = P(Z < -z_c + \frac{\sqrt{n}(\mu_0 - \mu_a)}{\sigma}$
+
+$H_a: \mu \neq \mu_0 \implies \pi(\mu_a) = 1 - P(-z_c + \frac{\sqrt{n}(\mu_0 - \mu_a)}{\sigma} < Z < z_c + \frac{\sqrt{n}(\mu_0 - \mu_a)}{\sigma}$
 
 # Module 9 - "Comparing Groups"
 

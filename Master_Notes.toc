@@ -1,0 +1,61 @@
+\contentsline {section}{Module 1 - ``Exploring Categorical Data''}{4}{section*.2}%
+\contentsline {subsection}{Frequency Distributions}{4}{section*.3}%
+\contentsline {subsection}{Describing Categorical Data}{4}{section*.4}%
+\contentsline {subsection}{Variable Roles}{6}{section*.5}%
+\contentsline {subsection}{Contingency Tables and Marginal Distribution Tables}{6}{section*.6}%
+\contentsline {subsection}{Marginal Distributions and Joint Distributions}{7}{section*.7}%
+\contentsline {subsection}{Comparing Two Conditional Proportions (Difference and Ratio of Proportions)}{7}{section*.8}%
+\contentsline {section}{Module 2 - ``Exploring Quantitaive Data''}{8}{section*.9}%
+\contentsline {subsection}{Shapes of Histograms}{8}{section*.10}%
+\contentsline {subsection}{Density Plot}{8}{section*.11}%
+\contentsline {subsection}{Centre and Central Tendency}{9}{section*.12}%
+\contentsline {subsection}{Mean, Median, and Mode}{9}{section*.13}%
+\contentsline {subsubsection}{Mean}{9}{section*.14}%
+\contentsline {subsubsection}{Median}{10}{section*.15}%
+\contentsline {subsubsection}{Mode}{11}{section*.16}%
+\contentsline {subsection}{Spread - Sample Variance (and Sample Standard Deviation)}{11}{section*.17}%
+\contentsline {subsubsection}{Sample Variance}{11}{section*.18}%
+\contentsline {subsubsection}{Population Variance}{12}{section*.19}%
+\contentsline {subsection}{Percentiles, Quartiles, and Interquartile Range}{12}{section*.20}%
+\contentsline {subsubsection}{Percentiles}{12}{section*.21}%
+\contentsline {subsubsection}{Interquartile Range (IQR)}{13}{section*.22}%
+\contentsline {subsection}{Z-Scores}{14}{section*.23}%
+\contentsline {subsubsection}{Empirical Rule}{14}{section*.24}%
+\contentsline {subsection}{Different Plots and how they relate to Normal Distributions}{14}{section*.25}%
+\contentsline {section}{Module 3 - ``Sampling Distributions Related to a Normal Population''}{15}{section*.26}%
+\contentsline {subsection}{Moments}{15}{section*.27}%
+\contentsline {subsection}{Moment Generating Functions}{15}{section*.28}%
+\contentsline {subsection}{The Sample Mean being related to the Normal Distribution}{16}{section*.29}%
+\contentsline {section}{Module 4 - ``Sampling Distributions Related to a Normal Population (cont.'d)''}{16}{section*.30}%
+\contentsline {subsection}{The Chi-Square Distribution (\(\chi _{\nu }^2\))}{16}{section*.31}%
+\contentsline {subsubsection}{The Relation of \(\chi ^2\) on Sample Variance \(S^2\)}{16}{section*.32}%
+\contentsline {subsection}{The t-Distribution}{17}{section*.33}%
+\contentsline {subsection}{The F-Distribution}{17}{section*.34}%
+\contentsline {section}{Module 5 - ``Applications of the Limit Theorem''}{18}{section*.35}%
+\contentsline {subsection}{Chebyshev's Theorem}{18}{section*.36}%
+\contentsline {subsection}{Convergence in Probability and the Weak Law of Large Numbers}{18}{section*.37}%
+\contentsline {subsection}{Central Limit Theorem (CLT)}{18}{section*.38}%
+\contentsline {subsection}{Normal Approximation to Binomial}{19}{section*.39}%
+\contentsline {section}{Module 6 - ``Confidence Intervals''}{19}{section*.40}%
+\contentsline {subsection}{CI for the Mean of a Normal Population (Variance Known)}{19}{section*.41}%
+\contentsline {subsection}{CI for the Mean of a Normal Population (Large Sample Size, Variance Unknown)}{20}{section*.42}%
+\contentsline {subsection}{CI for the Mean of a Normal Population (Small Sample Size, Variance Unknown)}{20}{section*.43}%
+\contentsline {subsection}{Large Sample CI for a Population Proportion}{20}{section*.44}%
+\contentsline {subsection}{CI for One Population Variance}{20}{section*.45}%
+\contentsline {section}{Module 7 - ``Hypothesis Testing''}{21}{section*.46}%
+\contentsline {subsection}{One-sided tests}{21}{section*.47}%
+\contentsline {subsection}{Two-sided tests}{21}{section*.48}%
+\contentsline {subsection}{Hypothesis testing of one mean}{21}{section*.49}%
+\contentsline {subsubsection}{Variance known, Normal Population (or CLT applies for large sample \(n\))}{21}{section*.50}%
+\contentsline {subsubsection}{Variance known, Normal Population, \(n\) is small}{22}{section*.51}%
+\contentsline {subsubsection}{Variance unknown, \(n\) large}{22}{section*.52}%
+\contentsline {subsubsection}{Variance unknown, \(n\) small}{22}{section*.53}%
+\contentsline {subsection}{Hypothesis testing of one variance}{22}{section*.54}%
+\contentsline {section}{Module 8 - ``Errors in Tests, Statistical Power, and Sample Size}{22}{section*.55}%
+\contentsline {subsection}{Type I and Type II Errors}{22}{section*.56}%
+\contentsline {subsection}{Statistical Power}{23}{section*.57}%
+\contentsline {subsection}{Using Power to Determine Sample Size}{23}{section*.58}%
+\contentsline {subsection}{Power formulas}{24}{section*.59}%
+\contentsline {section}{Module 9 - ``Comparing Groups''}{24}{section*.60}%
+\contentsline {section}{Module 10 - ``Analysis of Categorical Data''}{24}{section*.61}%
+\contentsline {section}{Module 11 - ``Correlation and Simple Linear Regression}{24}{section*.62}%
